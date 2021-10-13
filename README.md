@@ -1,10 +1,16 @@
-# TP Info002 Tom Kubasik, Hugo Hersemeule
+# TP 1 Info002 - Cryptologie
+## Compromis temps / mémoire, les tables arc-en-ciel
 
-Nous sommes rendu a i2c avec size min = size max 
+> Hugo Hersemeule & Tom Kubasik
+
+> Sujet du TP : https://www.lama.univ-savoie.fr/pagesmembres/hyvernat/Enseignement/2122/info910/tp1.html
+
+
+Pour le moment, nous sommes rendus à la question 3, avec size_min == size_max.
 
 ## Question 2 : 
 go run . CALCUL_N ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz 4 7
 
-## Indices et textes clairs
+## Question 3 : Indices et textes clairs
 go run . INDEX ABCDEFGHIJKLMNOPQRSTUVWXYZ 1234
 -> RFV
