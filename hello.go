@@ -26,7 +26,7 @@ func main() {
 	case "INDEX":
 		alphabet := os.Args[2]
 		index, _ := strconv.Atoi(os.Args[3])
-		fmt.Printf(getTextFromIndex(alphabet, index))
+		fmt.Printf(getTextFromIndex(alphabet, index, 2, 4))
 	}
 
 }
@@ -69,23 +69,41 @@ func nb_posibilities(alphabet string, size_min int, size_max int) []int {
 }
 
 //Question 3
-func getTextFromIndex(alphabet string, index int) string {
+func getTextFromIndex_monoSize(alphabet string, index int, mono_size int) string {
 	var len_alphabet = len(alphabet)
 	var alphabet_product = len_alphabet
-	var nbLetters int = 0
 	var indextemp int = index
 	var result string = ""
 	for indextemp >= alphabet_product {
 		indextemp -= alphabet_product
 		alphabet_product *= alphabet_product
-		nbLetters++
 	}
-	for i := 0; i <= nbLetters; i++ {
+	for i := 0; i <= mono_size; i++ {
 		result = result + string(alphabet[indextemp%len(alphabet)])
 		indextemp /= len(alphabet)
 	}
 	return Reverse(result)
+}
 
+//Question 3
+func getTextFromIndex(alphabet string, index int, size_min int, size_max int) string {
+	//on compte le nombre de possibilités de size_min à size_max
+	var tab_possibilities []int = nb_posibilities(alphabet, size_min, size_max)
+
+	//la bonne size est la size minimum qui est supérieur à index
+	var trouve bool = false
+	var good_size int = 0
+
+	var i int = 0
+	for !trouve {
+		if tab_possibilities[i] >= index {
+			good_size = i + 1
+			trouve = true
+		}
+		i++
+	}
+	//on fait getTextFromIndex_monoSize avec la size trouvé
+	return getTextFromIndex_monoSize(alphabet, index, good_size)
 }
 
 func Reverse(s string) (result string) {
