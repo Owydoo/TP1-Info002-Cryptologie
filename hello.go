@@ -31,7 +31,20 @@ func main() {
 
 }
 
-func nb_posibilities(alphabet string, size_min int, size_max int) int {
+//Question 1
+func hash_MD5(text string) [16]byte {
+	data := []byte(text)
+	return md5.Sum(data)
+}
+
+// Question 1
+func hash_SHA1(text string) [20]byte {
+	data := []byte(text)
+	return sha1.Sum(data)
+}
+
+// Question 2
+func nb_posibilities_Q2(alphabet string, size_min int, size_max int) int {
 	var n float64 = 0
 	for i := size_min; i <= size_max; i++ {
 		n += math.Pow(float64(len(alphabet)), float64(i))
@@ -39,16 +52,23 @@ func nb_posibilities(alphabet string, size_min int, size_max int) int {
 	return int(n)
 }
 
-func hash_MD5(text string) [16]byte {
-	data := []byte(text)
-	return md5.Sum(data)
+//for i2C
+func nb_posibilities(alphabet string, size_min int, size_max int) []int {
+	var len_alphabet float64 = float64(len(alphabet))
+
+	var tab_res = make([]int, (size_max-size_min)+1)
+
+	var iteration int = 0
+	for i := size_min; i <= size_max; i++ {
+		// nb_total += math.Pow(len_alphabet, float64(i))
+		tab_res[iteration] = int(math.Pow(len_alphabet, float64(i)))
+		iteration++
+	}
+
+	return tab_res
 }
 
-func hash_SHA1(text string) [20]byte {
-	data := []byte(text)
-	return sha1.Sum(data)
-}
-
+//Question 3
 func getTextFromIndex(alphabet string, index int) string {
 	var len_alphabet = len(alphabet)
 	var alphabet_product = len_alphabet

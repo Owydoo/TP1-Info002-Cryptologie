@@ -12,5 +12,7 @@ Pour le moment, nous sommes rendus à la question 3, avec size_min == size_max.
 go run . CALCUL_N ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz 4 7
 
 ## Question 3 : Indices et textes clairs
-go run . INDEX ABCDEFGHIJKLMNOPQRSTUVWXYZ 1234
+go run . INDEX ABCDEFGHIJKLMNOPQRSTUVWXYZ 12345
 -> RFV
+
+Fonctionne avec size_min == size_max
