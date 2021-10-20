@@ -70,9 +70,8 @@ func main() {
 		//test de la recherche question 10
 		tab := ouvreTable("test.txt")
 
-		a, b := recherche(tab, gHeight, 10589189)
+		a, b := recherche(tab, gHeight, 10589183)
 		fmt.Printf("%d %d", a, b)
+	case "VERIFIE_CANDIDAT":
 	}
-
-	// 10589900
 }

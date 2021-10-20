@@ -232,3 +232,25 @@ func recherche(table [][2]uint64, height uint64, index uint64) (a uint64, b uint
 
 	return gHeight, gHeight
 }
+
+// Q10
+// vérifie si un candidat est correct
+//   - empreinte : empreinte à inverser
+//   - t : numéro de la colonne où a été trouvé le candidat
+//   - index : indice candidat (de la colonne t)
+//   - clair : résultat : contient le texte clair obtenu
+func verifieCandidat(empreinte uint64, t uint64, index uint64) (estObtenu bool, clair uint64) {
+	for i := 1; i < int(t); i++ {
+		index = i2i(index, index)
+	}
+	clairTemp, _ := strconv.Atoi(i2c(index))
+	clair = uint64(clairTemp)
+
+	h2 := hash(string(clair))
+	h2_data := binary.LittleEndian.Uint64(h2)
+	return h2_data == empreinte, clair
+
+	// first8o := hash[:8]
+	// data := binary.LittleEndian.Uint64(first8o)
+
+}
