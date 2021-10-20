@@ -20,7 +20,7 @@ func h2i(hash []byte, t uint64) uint64 {
 func newString(index uint64, width uint64) uint64 {
 	var newIndex uint64 = index
 	for i := 1; i < int(width); i++ {
-		newIndex = i2i(newIndex, uint64(i))
+		newIndex = i2i(uint64(i), newIndex)
 	}
 	return newIndex
 }
