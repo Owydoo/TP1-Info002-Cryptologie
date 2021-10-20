@@ -157,3 +157,20 @@ func ouvreTable(filename string) [][2]uint64 {
 	return tabRes
 
 }
+
+//Q9
+/// affiche la table en entrée ainsi que
+/// les entêtes qui sont en variable globales
+func afficheTable(table [][2]uint64, poolSize uint64) {
+
+	//Imprimer les entêtes
+	fmt.Printf("fonction de hachage : %s\nalphabet : %s\ntaille_min : %d\n taille_max : %d\nlargeur de la table : %d\nhauteur de la table : %d\n", hashMethod, alphabet, sizeMin, sizeMax, gWidth, gHeight)
+	fmt.Printf("On affiche les %d premiers et le %d derniers : \n", poolSize, poolSize)
+
+	firstValues := table[:poolSize]
+	lastValues := table[len(table)-int(poolSize):]
+	fmt.Printf("content: \n %v\n...\n %v", firstValues, lastValues)
+	// // fmt.Printf("content: \n %v\n...\n %",firstValues, lastValues)
+
+	// fmt.Printf("%v\n", table)
+}
