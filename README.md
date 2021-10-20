@@ -35,5 +35,6 @@ Args après l'alphabet : size_min size_max width height
 
 ## Question 9 :
 
-go run . Q9 MD5 abcdefghijklmnopqrstuvwxyz 4 5 200 50
-(on remet les arguments pour éviter les erreurs par rapport à notre fonction main)
+go run . Q9 MD5 abcdefghijklmnopqrstuvwxyz 5 5 200 100 10 
+
+arguments : Fonction / fonction de hachage / alphabet / size_min / size_max / width / height / nb éléments du tableau s'affichant (à partir du début et à partir de la fin)

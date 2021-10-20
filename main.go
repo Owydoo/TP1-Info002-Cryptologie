@@ -59,10 +59,19 @@ func main() {
 		fmt.Printf("%v\n", creerTable(uint64(width), uint64(height)))
 		// sauveTable(creerTable(uint64(width), uint64(height)), uint64(width), uint64(height), "test.txt")
 	case "Q9":
+		// width, _ := strconv.Atoi(os.Args[6])
+		// height, _ := strconv.Atoi(os.Args[7])
+		//var tab [][2]uint64 = creerTable(uint64(width), uint64(height))
+		// sauveTable(tab, uint64(width), uint64(height), "test.txt")
+		// poolSize, _ := strconv.Atoi(os.Args[8])
+		afficheTable(ouvreTable("test.txt"), 1200)
 
-		fmt.Printf("%v\n", ouvreTable("test.txt"))
-		// fmt.Printf("fonction de hachage : %s\nalphabet : %s\ntaille_min : %d\n taille_max : %d\nlargeur de la table : %d\nhauteur de la table : %d\n", hashMethod, alphabet, sizeMin, sizeMax, gWidth, gHeight)
-		afficheTable(ouvreTable("test.txt"), 10)
+		//test de la recherche question 10
+		tab := ouvreTable("test.txt")
+
+		a, b := recherche(tab, gHeight, 10589900)
+		fmt.Printf("%d %d", a, b)
 	}
 
+	// 10589900
 }

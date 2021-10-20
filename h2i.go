@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"math/rand"
 	"os"
+	"sort"
 	"strconv"
 	"strings"
 	"time"
@@ -60,22 +61,28 @@ func indexAleatoire(nb_max uint64) uint64 {
 }
 
 //Q8
+func sortTableByLastColumn(table [][2]uint64) {
+	sort.Slice(table, func(i, j int) bool {
+		return table[i][1] < table[j][1]
+	})
+
+}
+
+//Q8
 func creerTable(width uint64, height uint64) [][2]uint64 {
-	// var texte_clair uint64 = index_aleatoire(N);
 
 	var tabRes [][2]uint64
 
 	for i := 0; i < int(height); i++ {
-		// tabRes = append(tabRes, newString(indexAleatoire(N), width))
 		var index = indexAleatoire(N)
 		var newString = newString(index, width)
 		var element [2]uint64 = [2]uint64{index, newString}
 
 		tabRes = append(tabRes, element)
 	}
+	sortTableByLastColumn(tabRes)
 
 	return tabRes
-
 }
 
 //Q9
@@ -170,7 +177,30 @@ func afficheTable(table [][2]uint64, poolSize uint64) {
 	firstValues := table[:poolSize]
 	lastValues := table[len(table)-int(poolSize):]
 	fmt.Printf("content: \n %v\n...\n %v", firstValues, lastValues)
-	// // fmt.Printf("content: \n %v\n...\n %",firstValues, lastValues)
+}
 
-	// fmt.Printf("%v\n", table)
+//Q10
+// recherche dichotomique dans la table les premières et dernières lignes dont
+// la seconde colonne est égale à idx
+//   - table : table arc-en-ciel
+//   - hauteur : nombre de chaines dans la table
+//   - idx : indice à rechercher dans la dernière (deuxième) colonne
+//   - a et b : (résultats) numéros des premières et dernières lignes dont les
+//     dernières colonnes sont égale à idx
+func recherche(table [][2]uint64, height uint64, index uint64) (a uint64, b uint64) {
+	a = uint64(sort.Search(int(gHeight), func(i int) bool {
+		return table[i][1] == index
+	}))
+	if a < gHeight {
+		b = a
+		for table[a][1] == index {
+			a--
+		}
+		for table[b][1] == index {
+			b++
+		}
+		return
+	}
+
+	return gHeight, gHeight
 }
