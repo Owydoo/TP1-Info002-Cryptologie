@@ -2,7 +2,9 @@ package main
 
 import (
 	"encoding/binary"
+	"fmt"
 	"math/rand"
+	"os"
 	"time"
 )
 
@@ -55,15 +57,42 @@ func indexAleatoire(nb_max uint64) uint64 {
 }
 
 //Q8
-func creerTable(width uint64, height uint64) []uint64 {
+func creerTable(width uint64, height uint64) [][2]uint64 {
 	// var texte_clair uint64 = index_aleatoire(N);
 
-	var tabRes []uint64
+	var tabRes [][2]uint64
 
 	for i := 0; i < int(height); i++ {
-		tabRes = append(tabRes, newString(indexAleatoire(N), width))
+		// tabRes = append(tabRes, newString(indexAleatoire(N), width))
+		var index = indexAleatoire(N)
+		var newString = newString(index, width)
+		var element [2]uint64 = [2]uint64{index, newString}
+
+		tabRes = append(tabRes, element)
 	}
 
 	return tabRes
 
+}
+
+//Q9
+func sauveTable(table [][2]uint64, width uint64, height uint64, filename string) error {
+	//créer le fichier
+	f, err := os.Create(filename)
+	if err != nil {
+		return err
+	}
+	defer f.Close()
+
+	//Entête du fichier
+	f.WriteString(fmt.Sprintf("fonction de hachage : %s\nalphabet : %s\ntaille_min : %d\n taille_max : %d\nlargeur de la table : %d\nhauteur de la table : %d\n", hashMethod, alphabet, sizeMin, sizeMax, width, height))
+
+	//écrire la table
+	for i := 0; i < int(height); i++ {
+		f.WriteString(fmt.Sprintf("%d : ", i))
+		f.WriteString(fmt.Sprintf("%d %d ", table[i][0], table[i][1]))
+		f.WriteString("\n")
+	}
+
+	return nil
 }

@@ -53,7 +53,8 @@ func main() {
 	case "Q8":
 		width, _ := strconv.Atoi(os.Args[6])
 		height, _ := strconv.Atoi(os.Args[7])
-		fmt.Printf("%v\n", creerTable(uint64(width), uint64(height)))
+		// fmt.Printf("%v\n", creerTable(uint64(width), uint64(height)))
+		sauveTable(creerTable(uint64(width), uint64(height)), uint64(width), uint64(height), "test.txt")
 	}
 
 }
