@@ -166,8 +166,10 @@ func ouvreTable(filename string) [][2]uint64 {
 }
 
 //Q9
-/// affiche la table en entrée ainsi que
-/// les entêtes qui sont en variable globales
+// affiche la table en entrée ainsi que
+// les entêtes qui sont en variable globales
+// 	- poolSize : donne le nombre d'éléments que la fonction affiche
+// 	au début et à la fin du tableau
 func afficheTable(table [][2]uint64, poolSize uint64) {
 
 	//Imprimer les entêtes
@@ -185,13 +187,39 @@ func afficheTable(table [][2]uint64, poolSize uint64) {
 //   - table : table arc-en-ciel
 //   - hauteur : nombre de chaines dans la table
 //   - idx : indice à rechercher dans la dernière (deuxième) colonne
-//   - a et b : (résultats) numéros des premières et dernières lignes dont les
-//     dernières colonnes sont égale à idx
+//   - a et b : (résultats) numéros des premières et dernières lignes dont les dernières colonnes sont égale à idx
+// Si index n'est pas dans table, alors la fonction renvoie la longueur de table
 func recherche(table [][2]uint64, height uint64, index uint64) (a uint64, b uint64) {
-	a = uint64(sort.Search(int(gHeight), func(i int) bool {
-		return table[i][1] == index
-	}))
-	if a < gHeight {
+	// a = uint64(sort.Search(len(table), func(i int) bool {
+	// 	return table[i][1] == index
+	// }))
+
+	//recherche dichotomique
+	debut := 0
+	fin := len(table) - 1
+
+	for debut <= fin {
+		mediane := (debut + fin) / 2
+
+		if table[mediane][1] < index {
+			debut = mediane + 1
+		} else {
+			fin = mediane - 1
+		}
+	}
+
+	if debut == len(table) || table[debut][1] != index {
+		return gHeight, gHeight
+		// Renvoie la longueur du tableau si index n'est pas dans le tableau.
+	} else {
+		a = uint64(debut)
+	}
+
+	//Notre recherche trouve l'index d'un élément == index, il faut maintenant
+	// trouver le premier élément égal à index et le dernier
+	fmt.Printf("%d %d\n", a, table[a][1])
+
+	if a < uint64(len(table)) {
 		b = a
 		for table[a][1] == index {
 			a--
@@ -199,7 +227,7 @@ func recherche(table [][2]uint64, height uint64, index uint64) (a uint64, b uint
 		for table[b][1] == index {
 			b++
 		}
-		return
+		return a, b
 	}
 
 	return gHeight, gHeight

@@ -59,17 +59,18 @@ func main() {
 		fmt.Printf("%v\n", creerTable(uint64(width), uint64(height)))
 		// sauveTable(creerTable(uint64(width), uint64(height)), uint64(width), uint64(height), "test.txt")
 	case "Q9":
-		// width, _ := strconv.Atoi(os.Args[6])
-		// height, _ := strconv.Atoi(os.Args[7])
-		//var tab [][2]uint64 = creerTable(uint64(width), uint64(height))
-		// sauveTable(tab, uint64(width), uint64(height), "test.txt")
-		// poolSize, _ := strconv.Atoi(os.Args[8])
-		afficheTable(ouvreTable("test.txt"), 1200)
+		width, _ := strconv.Atoi(os.Args[6])
+		height, _ := strconv.Atoi(os.Args[7])
+		var tab [][2]uint64 = creerTable(uint64(width), uint64(height))
+		sauveTable(tab, uint64(width), uint64(height), "test.txt")
+		poolSize, _ := strconv.Atoi(os.Args[8])
+		afficheTable(ouvreTable("test.txt"), uint64(poolSize))
 
+	case "RECHERCHE":
 		//test de la recherche question 10
 		tab := ouvreTable("test.txt")
 
-		a, b := recherche(tab, gHeight, 10589900)
+		a, b := recherche(tab, gHeight, 10589189)
 		fmt.Printf("%d %d", a, b)
 	}
 
