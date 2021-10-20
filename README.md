@@ -12,7 +12,11 @@ Pour le moment, nous sommes rendus à la question 3, avec size_min == size_max.
 go run . CALCUL_N ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz 4 7
 
 ## Question 3 : Indices et textes clairs
-go run . INDEX ABCDEFGHIJKLMNOPQRSTUVWXYZ 12345
+go run . INDEX ABCDEFGHIJKLMNOPQRSTUVWXYZ 12345 3 3
 -> RFV
 
-Fonctionne avec size_min == size_max
+## Question 5 : programmez la fonction h2i
+go run . Q5 
+
+## Question 6 : programmez i2i pour nouvelle_chaine(index, largeur)
+go run . Q6 MD5 ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz 4 5    

@@ -30,16 +30,14 @@ func main() {
 	N = nbPossibilities(lenAlphabet, sizeMin, sizeMax)
 	tabN = nbPosibilitiesTab(lenAlphabet, sizeMin, sizeMax)
 
-	fmt.Printf("%d\n", h2i(hash("oups"),1))
-
 	switch function {
-	case "FP_MD5":
+	case "FP_MD5": //Q1
 		fmt.Printf("%x", hashMd5(os.Args[2]))
-	case "FP_SHA1":
+	case "FP_SHA1": //Q1
 		fmt.Printf("%x", hashSha1(os.Args[2]))
 	case "N": // Question 2
 		fmt.Printf("%d", nbPossibilities(uint64(len(alphabet)), uint64(sizeMin), uint64(sizeMax)))
-	case "INDEX":
+	case "INDEX": //Q3
 		index, _ := strconv.Atoi(os.Args[6])
 		//tabN := nbPosibilitiesTab(lenAlphabet, sizeMin, sizeMax)
 		// Display Tab N
@@ -48,7 +46,10 @@ func main() {
 		} */
 
 		fmt.Printf(i2c(uint64(index)))
-
+	case "Q5":
+		fmt.Printf("%d\n", h2i(hash("oups"), 1)) //Q5
+	case "Q6":
+		fmt.Printf("%d\n", newString(1, 2)) //Q6
 	}
 
 }
