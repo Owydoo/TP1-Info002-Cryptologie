@@ -141,7 +141,19 @@ func ouvreTable(filename string) [][2]uint64 {
 	N = nbPossibilities(lenAlphabet, sizeMin, sizeMax)
 
 	//Création de la table
-	var tabRes [][2]uint64 = creerTable(gWidth, gHeight)
+	var tabRes [][2]uint64
+
+	//Scan du reste des lignes du fichier
+	for sc.Scan() {
+		line := sc.Text()
+		lineTemp := strings.Split(line, " : ")[1]
+
+		table := strings.Split(lineTemp, " ")
+		index, _ := strconv.Atoi(table[0])
+		value, _ := strconv.Atoi(table[1])
+
+		tabRes = append(tabRes, [2]uint64{uint64(index), uint64(value)})
+	}
 	return tabRes
 
 }

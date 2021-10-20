@@ -59,9 +59,8 @@ func main() {
 		fmt.Printf("%v\n", creerTable(uint64(width), uint64(height)))
 		// sauveTable(creerTable(uint64(width), uint64(height)), uint64(width), uint64(height), "test.txt")
 	case "Q9":
-		ouvreTable("test.txt")
+		fmt.Printf("%v\n", ouvreTable("test.txt"))
 		fmt.Printf("fonction de hachage : %s\nalphabet : %s\ntaille_min : %d\n taille_max : %d\nlargeur de la table : %d\nhauteur de la table : %d\n", hashMethod, alphabet, sizeMin, sizeMax, gWidth, gHeight)
-
 	}
 
 }
