@@ -1,10 +1,13 @@
 package main
 
 import (
+	"bufio"
 	"encoding/binary"
 	"fmt"
 	"math/rand"
 	"os"
+	"strconv"
+	"strings"
 	"time"
 )
 
@@ -95,4 +98,50 @@ func sauveTable(table [][2]uint64, width uint64, height uint64, filename string)
 	}
 
 	return nil
+}
+
+//Q9
+func ouvreTable(filename string) [][2]uint64 {
+	f, _ := os.Open(filename)
+	defer f.Close()
+
+	sc := bufio.NewScanner(f)
+
+	if sc.Scan() { //fonction de hachage
+		line := sc.Text()
+		hashMethod = strings.Split(line, " : ")[1]
+	}
+	if sc.Scan() { //alphabet
+		line := sc.Text()
+		alphabet = strings.Split(line, " : ")[1]
+	}
+	if sc.Scan() { //taille minimum
+		line := (sc.Text())
+		sizeMinTemp, _ := strconv.Atoi(strings.Split(line, " : ")[1])
+		sizeMin = uint64(sizeMinTemp)
+	}
+	if sc.Scan() { //taille maximale
+		line := (sc.Text())
+		sizeMaxTemp, _ := strconv.Atoi(strings.Split(line, " : ")[1])
+		sizeMax = uint64(sizeMaxTemp)
+	}
+	if sc.Scan() { //largeur
+		line := (sc.Text())
+		widthTemp, _ := strconv.Atoi(strings.Split(line, " : ")[1])
+		gWidth = uint64(widthTemp)
+	}
+	if sc.Scan() { //hauteur
+		line := (sc.Text())
+		heightTemp, _ := strconv.Atoi(strings.Split(line, " : ")[1])
+		gHeight = uint64(heightTemp)
+	}
+
+	//Calcul de la longueur de l'alphabet
+	lenAlphabet = uint64(len(alphabet))
+	N = nbPossibilities(lenAlphabet, sizeMin, sizeMax)
+
+	//Création de la table
+	var tabRes [][2]uint64 = creerTable(gWidth, gHeight)
+	return tabRes
+
 }

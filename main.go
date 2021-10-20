@@ -14,6 +14,9 @@ var N uint64
 var tabN []uint64
 var hashMethod string
 
+var gWidth uint64
+var gHeight uint64
+
 func main() {
 
 	// Init global values
@@ -53,8 +56,12 @@ func main() {
 	case "Q8":
 		width, _ := strconv.Atoi(os.Args[6])
 		height, _ := strconv.Atoi(os.Args[7])
-		// fmt.Printf("%v\n", creerTable(uint64(width), uint64(height)))
-		sauveTable(creerTable(uint64(width), uint64(height)), uint64(width), uint64(height), "test.txt")
+		fmt.Printf("%v\n", creerTable(uint64(width), uint64(height)))
+		// sauveTable(creerTable(uint64(width), uint64(height)), uint64(width), uint64(height), "test.txt")
+	case "Q9":
+		ouvreTable("test.txt")
+		fmt.Printf("fonction de hachage : %s\nalphabet : %s\ntaille_min : %d\n taille_max : %d\nlargeur de la table : %d\nhauteur de la table : %d\n", hashMethod, alphabet, sizeMin, sizeMax, gWidth, gHeight)
+
 	}
 
 }

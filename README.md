@@ -32,3 +32,8 @@ Si on trouve que l'empreinte de deux textes clairs sont identique pour un t donn
 go run . Q8 MD5 abcdefghijklmnopqrstuvwxyz 5 5 200 100
 
 Args après l'alphabet : size_min size_max width height
+
+## Question 9 :
+
+go run . Q9 MD5 abcdefghijklmnopqrstuvwxyz 4 5 200 50
+(on remet les arguments pour éviter les erreurs par rapport à notre fonction main)
