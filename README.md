@@ -19,4 +19,16 @@ go run . INDEX ABCDEFGHIJKLMNOPQRSTUVWXYZ 12345 3 3
 go run . Q5 
 
 ## Question 6 : programmez i2i pour nouvelle_chaine(index, largeur)
-go run . Q6 MD5 ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz 4 5    
+go run . Q6 MD5 ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz 4 5   
+
+## Question 7 : 
+
+> En quoi est-ce que l'ajout du paramètre t dans la fonction h2i permet d'augmenter la couverture de la table ?
+
+Si on trouve que l'empreinte de deux textes clairs sont identique pour un t donné, alors on peut recommencer avec une autre valeur de t pour trouver un résultat différent.
+
+## Question 8 :
+
+go run . Q8 MD5 abcdefghijklmnopqrstuvwxyz 5 5 200 100
+
+Args après l'alphabet : size_min size_max width height

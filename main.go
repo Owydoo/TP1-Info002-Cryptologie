@@ -44,15 +44,16 @@ func main() {
 		/* for _, value := range tabN {
 			fmt.Printf("%d\n", value)
 		} */
-
 		fmt.Printf(i2c(uint64(index)))
 	case "Q5":
 		fmt.Printf("%d\n", h2i(hash("oups"), 1)) //Q5
 	case "Q6":
 		width, _ := strconv.Atoi(os.Args[6])
 		fmt.Printf("%d\n", newString(1, uint64(width))) //Q6
+	case "Q8":
+		width, _ := strconv.Atoi(os.Args[6])
+		height, _ := strconv.Atoi(os.Args[7])
+		fmt.Printf("%v\n", creerTable(uint64(width), uint64(height)))
 	}
-
-	// fmt.Printf("%d\n", i2i()) //Q6
 
 }
