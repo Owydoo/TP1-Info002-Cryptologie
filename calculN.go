@@ -1,7 +1,7 @@
 package main
 
-func nbPossibilities(lenAlphabet int, sizeMin int, sizeMax int) int {
-	var n  = 0
+func nbPossibilities(lenAlphabet uint64, sizeMin uint64, sizeMax uint64) uint64 {
+	var n uint64 = 0
 	for i := sizeMin; i <= sizeMax; i++ {
 		n += pow(lenAlphabet, i)
 	}
@@ -9,8 +9,8 @@ func nbPossibilities(lenAlphabet int, sizeMin int, sizeMax int) int {
 }
 
 //for i2C
-func nbPosibilitiesTab(lenAlphabet int, sizeMin int, sizeMax int) []int {
-	var tabRes = make([]int, (sizeMax-sizeMin)+1)
+func nbPosibilitiesTab(lenAlphabet uint64, sizeMin uint64, sizeMax uint64) []uint64 {
+	var tabRes = make([]uint64, (sizeMax-sizeMin)+1)
 
 	var iteration= 0
 	for i := sizeMin; i <= sizeMax; i++ {

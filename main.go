@@ -1,55 +1,54 @@
 package main
 
 import (
-	"crypto/md5"
-	"crypto/sha1"
 	"fmt"
 	"os"
 	"strconv"
 )
 
+var alphabet string
+var sizeMin uint64
+var sizeMax uint64
+var lenAlphabet uint64
+var N uint64
+var tabN []uint64
+var hashMethod string
+
 func main() {
 
-	H := os.Args[1]
+	// Init global values
+	// go run . FUNC H ALPHABET SIZE_MIN SIZE_MAX
+	function := os.Args[1]
+	hashMethod = os.Args[2]
+	alphabet = os.Args[3]
+	lenAlphabet = uint64(len(alphabet))
+	sizeMinTemp, _ := strconv.Atoi(os.Args[4])
+	sizeMin = uint64(sizeMinTemp)
 
-	switch H {
+	sizeMaxTemp, _ := strconv.Atoi(os.Args[5])
+	sizeMax = uint64(sizeMaxTemp)
+	N = nbPossibilities(lenAlphabet, sizeMin, sizeMax)
+	tabN = nbPosibilitiesTab(lenAlphabet, sizeMin, sizeMax)
+
+	fmt.Printf("%d\n", h2i(hash("oups"),1))
+
+	switch function {
 	case "FP_MD5":
 		fmt.Printf("%x", hashMd5(os.Args[2]))
 	case "FP_SHA1":
 		fmt.Printf("%x", hashSha1(os.Args[2]))
 	case "N": // Question 2
-		alphabet := os.Args[2]
-		sizeMin, _ := strconv.Atoi(os.Args[3])
-		sizeMax, _ := strconv.Atoi(os.Args[4])
-		fmt.Printf("%d", nbPossibilities(len(alphabet), sizeMin, sizeMax))
+		fmt.Printf("%d", nbPossibilities(uint64(len(alphabet)), uint64(sizeMin), uint64(sizeMax)))
 	case "INDEX":
-		alphabet := os.Args[2]
-		sizeMin, _ := strconv.Atoi(os.Args[3])
-		sizeMax, _ := strconv.Atoi(os.Args[4])
-		index, _ := strconv.Atoi(os.Args[5])
-
-		//Calcul useful things
-		lenAlphabet := len(alphabet)
-		tabN := nbPosibilitiesTab(lenAlphabet, sizeMin, sizeMax)
+		index, _ := strconv.Atoi(os.Args[6])
+		//tabN := nbPosibilitiesTab(lenAlphabet, sizeMin, sizeMax)
 		// Display Tab N
-		for _, value := range tabN {
+		/* for _, value := range tabN {
 			fmt.Printf("%d\n", value)
-		}
+		} */
 
-		fmt.Printf(i2c(alphabet,lenAlphabet, index, sizeMin))
+		fmt.Printf(i2c(uint64(index)))
 
 	}
 
 }
-
-func hashMd5(text string) [16]byte {
-	data := []byte(text)
-	return md5.Sum(data)
-}
-
-func hashSha1(text string) [20]byte {
-	data := []byte(text)
-	return sha1.Sum(data)
-}
-
-

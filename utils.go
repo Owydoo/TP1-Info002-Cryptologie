@@ -5,11 +5,11 @@ import (
 	"math"
 )
 
-func pow(i1 int, i2 int) int {
-	return int(math.Pow(float64(i1), float64(i2)))
+func pow(i1 uint64, i2 uint64) uint64 {
+	return uint64(math.Pow(float64(i1), float64(i2)))
 }
 
-func logInt(i int) {
+func logInt(i uint64) {
 	fmt.Printf("%d\n", i)
 }
 
