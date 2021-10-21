@@ -286,3 +286,13 @@ func inverse(table [][2]uint64, hauteur uint64, largeur uint64, empreinte uint64
 	}
 	return 0
 }
+
+//Q12
+func estimerCouverture(table [][2]uint64, largeur uint64, hauteur uint64) uint64 {
+	m := float64(hauteur)
+	N := float64(nbPossibilities(lenAlphabet, sizeMin, sizeMax))
+	v := 1.0
+	for i := 0; i < int(largeur); i++ {
+		v = v * (1 - m/N)
+	}
+}
