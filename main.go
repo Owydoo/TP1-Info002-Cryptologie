@@ -72,6 +72,7 @@ func main() {
 
 		a, b := recherche(tab, gHeight, 10589183)
 		fmt.Printf("%d %d", a, b)
-	case "VERIFIE_CANDIDAT":
+	case "Q10":
+
 	}
 }

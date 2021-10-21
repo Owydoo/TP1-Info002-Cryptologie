@@ -254,3 +254,35 @@ func verifieCandidat(empreinte uint64, t uint64, index uint64) (estObtenu bool, 
 	// data := binary.LittleEndian.Uint64(first8o)
 
 }
+
+//Q10
+// essaie d'inverser l'empreinte h
+//   - table : table arc-en-ciel
+//   - hauteur : nombre de chaines dans la table
+//   - largeur : longueur des chaines
+//   - empreinte : empreinte à inverser
+//   - clair : (résultat) texte clair dont l'empreinte est h
+func inverse(table [][2]uint64, hauteur uint64, largeur uint64, empreinte uint64) uint64 {
+	var nb_candidats uint64 = 0
+	byte_empreinte := make([]byte, 16)
+	binary.LittleEndian.PutUint64(byte_empreinte, empreinte)
+	for t := largeur - 1; t > 0; t-- {
+		idx := h2i(byte_empreinte, t)
+		for i := t + 1; i < largeur; i++ {
+			idx = i2i(idx, i)
+		}
+		a, b := recherche(table, hauteur, idx)
+		if !(a >= hauteur && b >= hauteur) {
+			for i := a; i <= b; i++ {
+				estCandidat, _ := verifieCandidat(empreinte, t, table[i][0])
+				if estCandidat {
+					return 1
+				} else {
+					nb_candidats++
+				}
+
+			}
+		}
+	}
+	return 0
+}
