@@ -3,7 +3,9 @@ package main
 import (
 	"bufio"
 	"encoding/binary"
+	"errors"
 	"fmt"
+	"math"
 	"math/rand"
 	"os"
 	"sort"
@@ -190,10 +192,6 @@ func afficheTable(table [][2]uint64, poolSize uint64) {
 //   - a et b : (résultats) numéros des premières et dernières lignes dont les dernières colonnes sont égale à idx
 // Si index n'est pas dans table, alors la fonction renvoie la longueur de table
 func recherche(table [][2]uint64, height uint64, index uint64) (a uint64, b uint64) {
-	// a = uint64(sort.Search(len(table), func(i int) bool {
-	// 	return table[i][1] == index
-	// }))
-
 	//recherche dichotomique
 	debut := 0
 	fin := len(table) - 1
@@ -262,7 +260,7 @@ func verifieCandidat(empreinte uint64, t uint64, index uint64) (estObtenu bool, 
 //   - largeur : longueur des chaines
 //   - empreinte : empreinte à inverser
 //   - clair : (résultat) texte clair dont l'empreinte est h
-func inverse(table [][2]uint64, hauteur uint64, largeur uint64, empreinte uint64) uint64 {
+func inverse(table [][2]uint64, hauteur uint64, largeur uint64, empreinte uint64) (clair uint64, err error) {
 	var nb_candidats uint64 = 0
 	byte_empreinte := make([]byte, 16)
 	binary.LittleEndian.PutUint64(byte_empreinte, empreinte)
@@ -274,17 +272,17 @@ func inverse(table [][2]uint64, hauteur uint64, largeur uint64, empreinte uint64
 		a, b := recherche(table, hauteur, idx)
 		if !(a >= hauteur && b >= hauteur) {
 			for i := a; i <= b; i++ {
-				estCandidat, _ := verifieCandidat(empreinte, t, table[i][0])
+				estCandidat, clair := verifieCandidat(empreinte, t, table[i][0])
 				if estCandidat {
-					return 1
+					return clair, nil
 				} else {
 					nb_candidats++
 				}
-
 			}
 		}
 	}
-	return 0
+	return 0, errors.New("pas trouvé de candidats")
+
 }
 
 //Q12
@@ -294,5 +292,6 @@ func estimerCouverture(table [][2]uint64, largeur uint64, hauteur uint64) uint64
 	v := 1.0
 	for i := 0; i < int(largeur); i++ {
 		v = v * (1 - m/N)
+		m = N * (1 - math.Pow(-m/N))
 	}
 }
