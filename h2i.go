@@ -216,8 +216,6 @@ func recherche(table [][2]uint64, height uint64, index uint64) (a uint64, b uint
 
 	//Notre recherche trouve l'index d'un élément == index, il faut maintenant
 	// trouver le premier élément égal à index et le dernier
-	// fmt.Printf("truc %d %d\n", a, table[a][1])
-
 	if a < uint64(len(table)) {
 		b = a
 		for table[a][1] == index {
@@ -243,17 +241,11 @@ func verifieCandidat(empreinte []byte, t uint64, index uint64) (estObtenu bool, 
 	for i := 1; i < int(t); i++ {
 		index = i2i(index, index)
 	}
-	// clairTemp, _ := strconv.Atoi()
 	clair = i2c(index)
 
 	h2 := hash(string(clair))
-	// h2_data := binary.LittleEndian.Uint64(h2)
+	fmt.Printf("empreinte : %v |  h2 : %v\n", empreinte, h2)
 	return bytes.Equal(h2, empreinte), clair
-	// h2 == empreinte, clair
-
-	// first8o := hash[:8]
-	// data := binary.LittleEndian.Uint64(first8o)
-
 }
 
 //Q10
@@ -265,8 +257,6 @@ func verifieCandidat(empreinte []byte, t uint64, index uint64) (estObtenu bool, 
 //   - clair : (résultat) texte clair dont l'empreinte est h
 func inverse(table [][2]uint64, hauteur uint64, largeur uint64, empreinte []byte) (clair string, err error) {
 	var nb_candidats uint64 = 0
-	// byte_empreinte := make([]byte, 16)
-	// binary.LittleEndian.PutUint64(byte_empreinte, empreinte)
 	for t := largeur - 1; t > 0; t-- {
 		idx := h2i(empreinte, t)
 		for i := t + 1; i < largeur; i++ {
@@ -275,8 +265,9 @@ func inverse(table [][2]uint64, hauteur uint64, largeur uint64, empreinte []byte
 		a, b := recherche(table, hauteur, idx)
 		if !(a >= hauteur && b >= hauteur) {
 			for i := a; i <= b; i++ {
-				estCandidat, clair := verifieCandidat(empreinte, t, table[i][0])
-				if estCandidat {
+				estObtenu, clair := verifieCandidat(empreinte, t, table[i][0])
+				fmt.Printf("est obtenu : %v clair : %s\n", estObtenu, clair)
+				if estObtenu {
 					return clair, nil
 				} else {
 					nb_candidats++
