@@ -74,17 +74,18 @@ func main() {
 		fmt.Printf("%d %d", a, b)
 	case "Q10":
 		//hacher un mot
-		mot_hashe := hash("abcd")
-		var width uint64 = 200
+		mot_hashe := hash("eabd")
+		var width uint64 = 1000
 		var height uint64 = 100000
 
 		//créer la rainbow table
-		var tab [][2]uint64 = creerTable((width), (height))
-
-		sauveTable(tab, uint64(width), uint64(height), "test.txt")
-
+		var tab = creerTable(width, height)
+		err := sauveTable(tab, width, height, "test.txt")
+		if err != nil {
+			return 
+		}
 		//inverser
-		clair, err := inverse(tab, (height), (width), mot_hashe)
+		clair, err := inverse(tab, height, width, mot_hashe)
 		if err != nil {
 			fmt.Println(err)
 		}
