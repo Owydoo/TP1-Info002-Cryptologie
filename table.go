@@ -12,11 +12,11 @@ import (
 )
 
 //Q8
-func indexAleatoire(nb_max uint64) uint64 {
+func indexAleatoire(nbMax uint64) uint64 {
 	// fmt.Printf("%d\n", rand.Int63n(int64(nb_max)))
 	s1 := rand.NewSource(time.Now().UnixNano())
 	r1 := rand.New(s1)
-	return uint64(r1.Intn(int(nb_max)))
+	return uint64(r1.Intn(int(nbMax)))
 }
 
 //Q8
@@ -35,7 +35,7 @@ func creerTable(width uint64, height uint64) [][2]uint64 {
 	for i := 0; i < int(height); i++ {
 		var index = indexAleatoire(N)
 		var newString = newString(index, width)
-		var element [2]uint64 = [2]uint64{index, newString}
+		var element = [2]uint64{index, newString}
 
 		tabRes = append(tabRes, element)
 	}
@@ -82,22 +82,22 @@ func ouvreTable(filename string) [][2]uint64 {
 		alphabet = strings.Split(line, " : ")[1]
 	}
 	if sc.Scan() { //taille minimum
-		line := (sc.Text())
+		line := sc.Text()
 		sizeMinTemp, _ := strconv.Atoi(strings.Split(line, " : ")[1])
 		sizeMin = uint64(sizeMinTemp)
 	}
 	if sc.Scan() { //taille maximale
-		line := (sc.Text())
+		line := sc.Text()
 		sizeMaxTemp, _ := strconv.Atoi(strings.Split(line, " : ")[1])
 		sizeMax = uint64(sizeMaxTemp)
 	}
 	if sc.Scan() { //largeur
-		line := (sc.Text())
+		line := sc.Text()
 		widthTemp, _ := strconv.Atoi(strings.Split(line, " : ")[1])
 		gWidth = uint64(widthTemp)
 	}
 	if sc.Scan() { //hauteur
-		line := (sc.Text())
+		line := sc.Text()
 		heightTemp, _ := strconv.Atoi(strings.Split(line, " : ")[1])
 		gHeight = uint64(heightTemp)
 	}

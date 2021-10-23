@@ -21,7 +21,7 @@ func i2c(index uint64) string {
 	}
 
 	var result = ""
-	for i := 0; i <= int(nbLetters); i++ {
+	for i := uint64(0); i <= nbLetters; i++ {
 		result = result + string(alphabet[indexTemp%lenAlphabet])
 		indexTemp /= lenAlphabet
 	}
@@ -42,9 +42,9 @@ func i2i(t uint64, index uint64) uint64 {
 
 //Q6
 func newString(index uint64, width uint64) uint64 {
-	var newIndex uint64 = index
-	for i := 1; i < int(width); i++ {
-		newIndex = i2i(uint64(i), newIndex)
+	newIndex := index
+	for i := uint64(1); i < width; i++ {
+		newIndex = i2i(i, newIndex)
 	}
 	return newIndex
 }
@@ -61,20 +61,19 @@ func recherche(table [][2]uint64, height uint64, index uint64) (a uint64, b uint
 	 test := sort.Search(int(height), func(i int) bool {
 		return table[i][1] == index
 	})
-	fmt.Printf("test : %d \n\n", test)
+	fmt.Printf("a : %d \n\n", test)
 	 a= uint64(test)
 
 	//Notre recherche trouve l'index d'un élément == index, il faut maintenant
 	// trouver le premier élément égal à index et le dernier
-	if a < uint64(len(table)) {
+	if a < height {
 		b = a
-		for table[a][1] == index && a>0{
+		for table[a][1] == index && a > 0 {
 			a--
 		}
-		for table[b][1] == index && b < height - 1{
+		for table[b][1] == index && b < height - 1 {
 			b++
 		}
-		fmt.Println("a et b", a, b)
 		return a, b
 	}
 
@@ -93,8 +92,7 @@ func verifieCandidat(empreinte []byte, t uint64, index uint64) (estObtenu bool, 
 	}
 	clair = i2c(index)
 
-	h2 := hash(string(clair))
-	//fmt.Printf("empreinte : %v |  h2 : %v\n", empreinte, h2)
+	h2 := hash(clair)
 	return bytes.Equal(h2, empreinte), clair
 }
 
@@ -106,7 +104,7 @@ func verifieCandidat(empreinte []byte, t uint64, index uint64) (estObtenu bool, 
 //   - empreinte : empreinte à inverser
 //   - clair : (résultat) texte clair dont l'empreinte est h
 func inverse(table [][2]uint64, hauteur uint64, largeur uint64, empreinte []byte) (clair string, err error) {
-	var nb_candidats uint64 = 0
+	var nbCandidats uint64 = 0
 	for t := largeur - 1; t > 0; t-- {
 		idx := h2i(empreinte, t)
 		for i := t + 1; i < largeur; i++ {
@@ -116,11 +114,10 @@ func inverse(table [][2]uint64, hauteur uint64, largeur uint64, empreinte []byte
 		if !(a >= hauteur && b >= hauteur) {
 			for i := a; i <= b; i++ {
 				estObtenu, clair := verifieCandidat(empreinte, t, table[i][0])
-				//fmt.Printf("est obtenu : %v clair : %s\n", estObtenu, clair)
 				if estObtenu {
 					return clair, nil
 				} else {
-					nb_candidats++
+					nbCandidats++
 				}
 			}
 		}
@@ -132,11 +129,11 @@ func inverse(table [][2]uint64, hauteur uint64, largeur uint64, empreinte []byte
 //Q12
 func estimerCouverture(largeur uint64, hauteur uint64) (couverture float64) {
 	m := float64(hauteur)
-	N := float64(nbPossibilities(lenAlphabet, sizeMin, sizeMax))
+	nFloat := float64(N)
 	v := 1.0
-	for i := 0; i < int(largeur); i++ {
-		v = v * (1 - m/N)
-		m = N * (1 - math.Exp(-m/N))
+	for i := uint64(0); i < largeur; i++ {
+		v = v * (1 - m/nFloat)
+		m = nFloat * (1 - math.Exp(-m/nFloat))
 	}
 	couverture = 100 * (1 - v)
 	return couverture

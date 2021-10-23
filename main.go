@@ -74,18 +74,17 @@ func main() {
 		fmt.Printf("%d %d", a, b)
 	case "Q10":
 		//hacher un mot
-		mot_hashe := hash("eabd")
-		var width uint64 = 1000
+		motHashe := hash("eabd")
+		//motHashe:= "08054846bbc9933fd0395f8be516a9f9"
+		var width uint64 = 300
 		var height uint64 = 100000
+
+		fmt.Printf("%f",estimerCouverture(width, height))
 
 		//créer la rainbow table
 		var tab = creerTable(width, height)
-		err := sauveTable(tab, width, height, "test.txt")
-		if err != nil {
-			return 
-		}
-		//inverser
-		clair, err := inverse(tab, height, width, mot_hashe)
+		//err := sauveTable(tab, width, height, "test.txt")
+		clair, err := inverse(tab, height, width, []byte(motHashe))
 		if err != nil {
 			fmt.Println(err)
 		}
