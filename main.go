@@ -72,7 +72,7 @@ func main() {
 		var width uint64 = 300
 		var height uint64 = 100000
 
-		fmt.Printf("%f",estimerCouverture(width, height))
+		// fmt.Printf("%f",estimerCouverture(width, height))
 
 		//créer la rainbow table
 		var tab = creerTable(width, height)
