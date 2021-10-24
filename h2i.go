@@ -115,7 +115,8 @@ func inverse(table [][2]uint64, hauteur uint64, largeur uint64, empreinte []byte
 
 		// fmt.Println("largeur et t", largeur, t, largeur-t, float64(largeur-t)/float64(largeur))
 		// ==== affichage du loading
-		fmt.Printf(">> Inversement en cours : %d%%\n", int((float64(largeur-t)/float64(largeur))*100))
+		pourcentage := int((float64(largeur-t) / float64(largeur)) * 100)
+		fmt.Printf(">> Inversement en cours : %d%%\n", pourcentage)
 		// ====
 
 		idx := h2i(empreinte, t)
