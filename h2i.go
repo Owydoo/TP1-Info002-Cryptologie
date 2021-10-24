@@ -105,7 +105,9 @@ func verifieCandidat(empreinte []byte, t uint64, index uint64) (estObtenu bool, 
 //   - clair : (résultat) texte clair dont l'empreinte est h
 func inverse(table [][2]uint64, hauteur uint64, largeur uint64, empreinte []byte) (clair string, err error) {
 	// ====
-	fmt.Printf(">> Début de la recherche de l'empreinte %v dans la table :\n", empreinte)
+	couverture := estimerCouverture(largeur, hauteur)
+	fmt.Printf(">> Estimation de la couverture de la table : %.2f %%\n", couverture)
+	fmt.Printf(">> Début de l'inversion de l'empreinte %v dans la table :\n", empreinte)
 	// ====
 
 	var nbCandidats uint64 = 0
