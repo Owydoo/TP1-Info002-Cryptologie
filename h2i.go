@@ -58,11 +58,11 @@ func newString(index uint64, width uint64) uint64 {
 //   - a et b : (résultats) numéros des premières et dernières lignes dont les dernières colonnes sont égale à idx
 // Si index n'est pas dans table, alors la fonction renvoie la longueur de table
 func recherche(table [][2]uint64, height uint64, index uint64) (a uint64, b uint64) {
-	 test := sort.Search(int(height), func(i int) bool {
+	test := sort.Search(int(height), func(i int) bool {
 		return table[i][1] == index
 	})
-	fmt.Printf("a : %d \n\n", test)
-	 a= uint64(test)
+	// fmt.Printf("a : %d \n\n", test)
+	a = uint64(test)
 
 	//Notre recherche trouve l'index d'un élément == index, il faut maintenant
 	// trouver le premier élément égal à index et le dernier
@@ -71,7 +71,7 @@ func recherche(table [][2]uint64, height uint64, index uint64) (a uint64, b uint
 		for table[a][1] == index && a > 0 {
 			a--
 		}
-		for table[b][1] == index && b < height - 1 {
+		for table[b][1] == index && b < height-1 {
 			b++
 		}
 		return a, b
@@ -104,8 +104,21 @@ func verifieCandidat(empreinte []byte, t uint64, index uint64) (estObtenu bool, 
 //   - empreinte : empreinte à inverser
 //   - clair : (résultat) texte clair dont l'empreinte est h
 func inverse(table [][2]uint64, hauteur uint64, largeur uint64, empreinte []byte) (clair string, err error) {
+	// ====
+	couverture := estimerCouverture(largeur, hauteur)
+	fmt.Printf(">> Estimation de la couverture de la table : %.2f %%\n", couverture)
+	fmt.Printf(">> Début de l'inversion de l'empreinte %v dans la table :\n", empreinte)
+	// ====
+
 	var nbCandidats uint64 = 0
 	for t := largeur - 1; t > 0; t-- {
+
+		// fmt.Println("largeur et t", largeur, t, largeur-t, float64(largeur-t)/float64(largeur))
+		// ==== affichage du loading
+		pourcentage := int((float64(largeur-t) / float64(largeur)) * 100)
+		fmt.Printf(">> Inversement en cours : %d%%\n", pourcentage)
+		// ====
+
 		idx := h2i(empreinte, t)
 		for i := t + 1; i < largeur; i++ {
 			idx = i2i(i, idx)
@@ -115,6 +128,9 @@ func inverse(table [][2]uint64, hauteur uint64, largeur uint64, empreinte []byte
 			for i := a; i <= b; i++ {
 				estObtenu, clair := verifieCandidat(empreinte, t, table[i][0])
 				if estObtenu {
+					// ====
+					fmt.Printf(">> Un résultat a été obtenu : %s\n", clair)
+					// ====
 					return clair, nil
 				} else {
 					nbCandidats++
@@ -122,7 +138,7 @@ func inverse(table [][2]uint64, hauteur uint64, largeur uint64, empreinte []byte
 			}
 		}
 	}
-	return "", errors.New("pas trouvé de candidats")
+	return "", errors.New(">> L'inversion n'est pas possible.\n")
 
 }
 

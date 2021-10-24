@@ -66,24 +66,27 @@ func main() {
 		a, b := recherche(tab, gHeight, 10589183)
 		fmt.Printf("%d %d", a, b)
 	case "Q10":
+		width, _ := strconv.Atoi(os.Args[6])
+		height, _ := strconv.Atoi(os.Args[7])
 		//hacher un mot
-		motHashe := hash("eabd")
+		motClair := os.Args[8]
+		motHashe := hash(motClair)
 		//motHashe:= "08054846bbc9933fd0395f8be516a9f9"
-		var width uint64 = 300
-		var height uint64 = 100000
+		// var width uint64 = 300
+		// var height uint64 = 100000
 
-		fmt.Printf("%f",estimerCouverture(width, height))
+		// fmt.Printf("%f",estimerCouverture(width, height))
 
 		//créer la rainbow table
-		var tab = creerTable(width, height)
+		var tab = creerTable(uint64(width), uint64(height))
 		//err := sauveTable(tab, width, height, "test.txt")
-		clair, err := inverse(tab, height, width, motHashe)
+		_, err := inverse(tab, uint64(height), uint64(width), motHashe)
 		if err != nil {
 			fmt.Println(err)
 		}
 
 		// fmt.Printf("%s", clair)
-		fmt.Println("clair : ", clair)
+		// fmt.Println("clair : ", clair)
 
 	}
 }

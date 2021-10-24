@@ -26,6 +26,10 @@ func sortTableByLastColumn(table [][2]uint64) {
 //Q8
 func creerTable(width uint64, height uint64) [][2]uint64 {
 
+	// ====
+	fmt.Printf(">> Création de la table de largeur %d et de hauteur %d :\n", width, height)
+	// ====
+
 	var tabRes [][2]uint64
 
 	for i := 0; i < int(height); i++ {
@@ -34,9 +38,14 @@ func creerTable(width uint64, height uint64) [][2]uint64 {
 		var element = [2]uint64{index, newString}
 
 		tabRes = append(tabRes, element)
+		// ==== affichage du loading
+		pourcentage := int((float64(i) / float64(height)) * 100)
+		fmt.Printf(">> Création en cours : %d%%\n", pourcentage)
+		// ====
 	}
 	sortTableByLastColumn(tabRes)
 
+	fmt.Printf(">> Création terminée.\n")
 	return tabRes
 }
 
