@@ -8,15 +8,11 @@ import (
 	"sort"
 	"strconv"
 	"strings"
-	"time"
 )
 
 //Q8
-func indexAleatoire(nbMax uint64) uint64 {
-	// fmt.Printf("%d\n", rand.Int63n(int64(nb_max)))
-	s1 := rand.NewSource(time.Now().UnixNano())
-	r1 := rand.New(s1)
-	return uint64(r1.Intn(int(nbMax)))
+func indexAleatoire() uint64 {
+	return rand.Uint64() % N
 }
 
 //Q8
@@ -33,7 +29,7 @@ func creerTable(width uint64, height uint64) [][2]uint64 {
 	var tabRes [][2]uint64
 
 	for i := 0; i < int(height); i++ {
-		var index = indexAleatoire(N)
+		var index = indexAleatoire()
 		var newString = newString(index, width)
 		var element = [2]uint64{index, newString}
 
